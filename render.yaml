@@ -2,5 +2,5 @@ services:
   - type: web
     name: emp-backend
     env: java
-    buildCommand: "./mvnw clean install"
+    buildCommand: "chmod +x mvnw && ./mvnw clean install"
     startCommand: "java -jar target/*.jar"
