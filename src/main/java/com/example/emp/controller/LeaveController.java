@@ -28,4 +28,23 @@ public class LeaveController {
     public List<LeaveRequest> getAll() {
         return repo.findAll();
     }
+
+    // Update leave status
+   @PutMapping("/{id}/{status}")
+public LeaveRequest updateStatus(@PathVariable Long id, @PathVariable String status) {
+
+    LeaveRequest leave = repo.findById(id).orElse(null);
+
+    if (leave == null) {
+        System.out.println("❌ Leave not found");
+        return null;
+    }
+
+
+    System.out.println("Updating ID: " + id + " to " + status);
+
+    leave.setStatus(status);
+
+    return repo.save(leave);
+}
 }
