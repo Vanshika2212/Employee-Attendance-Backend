@@ -15,15 +15,18 @@ public class AuthController {
     private UserRepository repo;
 
     @PostMapping("/login")
-public String login(@RequestBody User user) {
+    public String login(@RequestBody User user) {
 
-    System.out.println("Entered Username: " + user.getUsername());
-    System.out.println("Entered Password: " + user.getPassword());
+        if (user.getUsername() == null || user.getPassword() == null) {
+            return "FAIL";
+        }
 
-    // 🔥 TEMP HARDCODE (to avoid DB crash)
-    if ("admin".equals(user.getUsername()) && "1234".equals(user.getPassword())) {
-        return "SUCCESS";
+        User found = repo.findByUsername(user.getUsername());
+
+        if (found != null && found.getPassword().equals(user.getPassword())) {
+            return "SUCCESS";
+        }
+
+        return "FAIL";
     }
-
-    return "FAIL";
 }
