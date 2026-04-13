@@ -1,6 +1,7 @@
 services:
   - type: web
     name: emp-backend
-    env: java
-    buildCommand: "chmod +x mvnw && ./mvnw clean install"
+    env: docker
+    plan: free
+    buildCommand: "./mvnw clean install"
     startCommand: "java -jar target/*.jar"
